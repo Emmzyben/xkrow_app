@@ -1,0 +1,7 @@
+<resources>
+  <string name="app_name">xkrow</string>
+  <string name="expo_splash_screen_resize_mode" translatable="false">contain</string>
+  <string name="expo_splash_screen_status_bar_translucent" translatable="false">false</string>
+  <string name="expo_system_ui_user_interface_style" translatable="false">light</string>
+  <string name="server_client_id">78881264896-ritk45umj63k6bj5o7avk1uj60qc980b.apps.googleusercontent.com</string>
+</resources>

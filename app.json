@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "assetBundlePatterns": [
+      "assets/**/*"
+    ],
+    "plugins": ["@react-native-google-signin/google-signin"],
+    "name": "xkrow",
+    "slug": "xkrow",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/logo.jpg",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.emiblaq.xkrow"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.emiblaq.xkrow"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+  
+    "extra": {
+      "eas": {
+        "projectId": "34adad0b-4085-4c30-b794-a8d4cf0fe9fc"
+      }
+    },
+    "owner": "emiblaq"
+    
+  }
+}
