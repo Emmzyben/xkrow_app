@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import { View, Text, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 import styles from '../../styles/style';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Hero from '../../components/hero';
@@ -92,6 +93,16 @@ const Landing = ({ navigation }) => {
     }
   }, [user?.id]);
 
+  useFocusEffect(
+    useCallback(() => {
+      if (user?.id) {
+        fetchProfile();
+        checkCollections();
+        checkNotifications();
+      }
+    }, [user?.id])
+  );
+
   const handleNavigation = (route) => {
     setShowKYC1(false);
     setShowKYC2(false);
@@ -150,7 +161,7 @@ const styless = StyleSheet.create({
   },
   notificationBadge: {
     position: 'absolute',
-    top: 60,
+    top: 90,
     right: 30,
     backgroundColor: 'red',
     borderRadius: 10,

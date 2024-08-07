@@ -95,13 +95,13 @@ const Withdraw = ({ navigation }) => {
 
 const styless = StyleSheet.create({
   container: {
-    padding: 30,
+    padding: 20,
     borderWidth: 1,
-    borderColor: 'rgba(102, 112, 133, 1)',
+    borderColor: 'rgba(102, 112, 133, 1)',paddingTop:50
   },
   button: {
     position: 'absolute',
-    top: 30,
+    top: 50,
     left: 20,
     zIndex: 1000,
   },

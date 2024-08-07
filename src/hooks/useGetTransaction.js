@@ -70,7 +70,7 @@ const useGetTransaction = () => {
       setTransactions(transactions);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching transactions:', error);
+      // console.error('Error fetching transactions:', error);
       setError(error);
       setLoading(false);
     }

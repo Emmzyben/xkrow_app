@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, Alert, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Text, Image, TouchableOpacity, Alert, ActivityIndicator, ScrollView } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faArrowLeft, faPen, faGlobe, faCog, faAddressCard } from '@fortawesome/free-solid-svg-icons';
 import { useUser } from '../../backend/user';
@@ -10,8 +10,9 @@ import useGetProducts from '../../hooks/useGetProducts';
 import * as ImagePicker from 'expo-image-picker';
 import { storage, ID } from '../../backend/appwite'; 
 import { BUCKET_ID, API_URL, PROJECT_ID } from '@env';
+import { useFocusEffect } from '@react-navigation/native';
 import styles from '../../styles/style';
-
+import { StyleSheet } from 'react-native';
 const Profile = ({ navigation }) => {
   const contextUser = useUser();
   const { logout } = useUser();
@@ -28,62 +29,58 @@ const Profile = ({ navigation }) => {
   const [products, setProducts] = useState([]);
   const [productsLoading, setProductsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchProfileImage = async () => {
-      if (contextUser?.user?.id) {
-        try {
-          const imageUrl = await useFetchProfileImage(contextUser.user.id);
-          setProfileImage(imageUrl || 'https://example.com/placeholder-image.jpg');
-        } catch (error) {
-          console.error('Error fetching profile image:', error);
-          setProfileImage('https://example.com/placeholder-image.jpg');
-        }
+  const fetchProfileImage = async () => {
+    if (contextUser?.user?.id) {
+      try {
+        const imageUrl = await useFetchProfileImage(contextUser.user.id);
+        setProfileImage(imageUrl || 'https://example.com/placeholder-image.jpg');
+      } catch (error) {
+        console.error('Error fetching profile image:', error);
+        setProfileImage('https://example.com/placeholder-image.jpg');
       }
-    };
+    }
+  };
 
-    fetchProfileImage();
-  }, [contextUser.user?.id]);
-
-  useEffect(() => {
-    const fetchPersonalInfo = async () => {
-      if (contextUser?.user?.id) {
-        try {
-          const info = await useGetPersonalInfo(contextUser.user.id);
-          if (info?.length > 0) {
-            const data = info[0];
-            setPersonalInfo({
-              businessName: data.business_name,
-              businessType: data.business_type,
-              businessCategory: data.business_category,
-              businessDescription: data.description,
-              address: data.address,
-            });
-          }
-        } catch (error) {
-          console.error('Error fetching personal info:', error);
+  const fetchPersonalInfo = async () => {
+    if (contextUser?.user?.id) {
+      try {
+        const info = await useGetPersonalInfo(contextUser.user.id);
+        if (info?.length > 0) {
+          const data = info[0];
+          setPersonalInfo({
+            businessName: data.business_name,
+            businessType: data.business_type,
+            businessCategory: data.business_category,
+            businessDescription: data.description,
+            address: data.address,
+          });
         }
+      } catch (error) {
+        console.error('Error fetching personal info:', error);
       }
-    };
+    }
+  };
 
-    fetchPersonalInfo();
-  }, [contextUser.user?.id]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      if (contextUser?.user?.id) {
-        try {
-          const allProducts = await useGetProducts(contextUser.user.id);
-          setProducts(allProducts);
-        } catch (error) {
-          console.error('Error fetching products:', error);
-        } finally {
-          setProductsLoading(false);
-        }
+  const fetchProducts = async () => {
+    if (contextUser?.user?.id) {
+      try {
+        const allProducts = await useGetProducts(contextUser.user.id);
+        setProducts(allProducts);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setProductsLoading(false);
       }
-    };
+    }
+  };
 
-    fetchProducts();
-  }, [contextUser.user?.id]);
+  useFocusEffect(
+    useCallback(() => {
+      fetchProfileImage();
+      fetchPersonalInfo();
+      fetchProducts();
+    }, [contextUser.user?.id])
+  );
 
   const sendXmlHttpRequest = (data) => {
     const xhr = new XMLHttpRequest();
@@ -119,7 +116,6 @@ const Profile = ({ navigation }) => {
       }
     }
   };
-  
 
   const uploadImage = async () => {
     if (!image) throw new Error("No image selected");
@@ -176,8 +172,8 @@ const Profile = ({ navigation }) => {
         </TouchableOpacity>
         <Text style={localStyles.headerTitle}>Profile</Text>
       </View>
-
-      <View style={styles.profilePicture}>
+<View style={localStyles.bg}>
+  <View style={styles.profilePicture}>
   {profileImage ? (
     <Image source={{ uri: profileImage }} style={localStyles.profileImage} />
   ) : (
@@ -190,6 +186,8 @@ const Profile = ({ navigation }) => {
     <FontAwesomeIcon icon={faPen} size={18} color='#fff'/>
   </TouchableOpacity>
 </View>
+</View>
+      
 
 
       <Text style={styles.businessName}>{personalInfo.businessName || 'Business Name'}</Text>
@@ -310,14 +308,14 @@ const Profile = ({ navigation }) => {
 
 const localStyles = StyleSheet.create({
   header: {
-    padding: 30,
+    padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(102, 112, 133, 1)',
+    borderBottomColor: 'rgba(102, 112, 133, 1)',paddingTop:50
   },
   backButton: {
     position: 'absolute',
-    top: 30,
-    left: 15,
+    top: 50,
+    left: 20,zIndex:10000
   },
   headerTitle: {
     textAlign: 'center',
@@ -327,7 +325,7 @@ const localStyles = StyleSheet.create({
     color: '#141414',
   },
   profileImage: {
-    height: '100%',
+    height: '100%',borderRadius:100
   },
   followButtonText: {
     textAlign: 'center',
@@ -361,8 +359,11 @@ const localStyles = StyleSheet.create({
   },
   productImage: {
     width: 100,
-    height: 100,
+    height: 100,borderRadius:20
   },
+  bg:{
+    display:'flex',alignItems:'center',justifyContent:'center',backgroundColor:'#ccc'
+  }
 });
 
 export default Profile;

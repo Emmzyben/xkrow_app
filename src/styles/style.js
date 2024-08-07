@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   },
   login: {
     padding: 30,
+    paddingTop:80,
     backgroundColor: '#FFFFFF',
     height: '100%',
   },
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
   kyc1: {
     backgroundColor: 'rgba(234, 236, 240, 1)',
     height: '100%',
-    padding: 15, // Add padding to prevent content from touching edges
+    padding: 15, paddingTop:60
   },
   maincontainer: {
     margin: 15,
@@ -294,7 +295,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   top1: {
-    padding: 20,
+    padding: 20,paddingTop:50,
   },
   icon: {
     borderWidth: 1,
@@ -391,7 +392,7 @@ flex:1,
   },
   newcover: {
     backgroundColor: '#62248F',
-    padding: 25,
+    padding: 25,paddingTop:60,
     paddingBottom: 50,
     zIndex: -1,
     display:'flex',flexDirection:'row'
@@ -475,7 +476,7 @@ flex:1,
     borderRadius: 15,
   },
   bgcover: {
-    backgroundColor: '#0000006b',
+    backgroundColor: '#00000000',
     paddingBottom: '110%',
     zIndex: 10000,
     position: 'absolute',
@@ -583,8 +584,9 @@ flex:1,
     fontSize: 12,
   },
   profilePicture: {
-    height: 110,
-    backgroundColor: 'grey',
+    height: 150, 
+  width:'50%',
+    margin:10,
   },
   businessName: {
     padding: 20,
@@ -661,6 +663,9 @@ flex:1,
     height: 90,
     borderRadius: 10,
   },
+  bg:{
+    display:'flex',alignItems:'center',justifyContent:'center',backgroundColor:'#ccc'
+  }
 });
 
 

@@ -108,20 +108,20 @@ const Vendor1 = ({ navigation }) => {
 
   const localStyles = StyleSheet.create({
     container: {
-      padding: 30,
+      padding: 20,
       borderColor: 'rgba(102, 112, 133, 1)',
-      borderWidth: 1,
+      borderWidth: 1,paddingTop:50
     },
     iconLeft: {
       position: 'absolute',
-      top: 40,
-      zIndex: 1000,left:10
+      top: 50,
+      zIndex: 1000,left:20
     },
     iconRight: {
       position: 'absolute',
-      top: 40,
+      top: 50,
       zIndex: 1000,
-      right: 10,
+      right: 20,
     },
     titleText: {
       textAlign: 'center',

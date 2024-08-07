@@ -157,6 +157,8 @@ const TransactionDetailsPage = ({ navigation }) => {
         <View style={styles.section}>
           <Text style={styles.title}>Transaction status</Text>
           <Text style={styles.value}>{escrowDocument.status}</Text>
+          <Text style={styles.label}>Transaction ID:</Text>
+          <Text style={styles.value}>{escrowDocument.$id}</Text>
         </View>
       )}
       {associatedDocument && (
@@ -172,8 +174,6 @@ const TransactionDetailsPage = ({ navigation }) => {
               <Text style={styles.value}>{associatedDocument.duration}</Text>
               <Text style={styles.label}>Payment Type:</Text>
               <Text style={styles.value}>{associatedDocument.payment_type}</Text>
-              <Text style={styles.label}>Amount:</Text>
-              <Text style={styles.value}>₦{associatedDocument.amount}</Text>
               {/* <Text style={styles.label}>Installments:</Text>
               {renderInstallments(associatedDocument.installments)} */}
             </View>
@@ -182,40 +182,57 @@ const TransactionDetailsPage = ({ navigation }) => {
               <Text style={styles.label}>Product Name:</Text>
               <Text style={styles.value}>{associatedDocument.product_name}</Text>
               <Text style={styles.label}>Product Cost:</Text>
-              <Text style={styles.value}>₦{associatedDocument.product_cost}</Text>
-              <Text style={styles.label}>Description:</Text>
-              <Text style={styles.value}>{associatedDocument.description}</Text>
+              <Text style={styles.value}>₦ {associatedDocument.product_cost}</Text>
             </View>
           )}
         </View>
       )}
       {showCompleteWorkButton && (
-        <View style={styles.lastDown1}>
-          <TouchableOpacity style={styles.button} onPress={handleCompleteWork} disabled={isLoadingCompleteWork}>
-            {isLoadingCompleteWork ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>I have completed the work</Text>}
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          style={[styles.button, isLoadingCompleteWork && styles.buttonLoading]}
+          onPress={handleCompleteWork}
+          disabled={isLoadingCompleteWork}
+        >
+          {isLoadingCompleteWork ? (
+            <ActivityIndicator size="small" color="#ffffff" />
+          ) : (
+            <Text style={styles.buttonText}>Complete Work</Text>
+          )}
+        </TouchableOpacity>
       )}
       {showConfirmPaymentButton && (
-        <View style={styles.lastDown1}>
-          <TouchableOpacity style={styles.button} onPress={handleConfirmPayment} disabled={isLoadingConfirmPayment}>
-            {isLoadingConfirmPayment ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Confirm Payment</Text>}
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          style={[styles.button, isLoadingConfirmPayment && styles.buttonLoading]}
+          onPress={handleConfirmPayment}
+          disabled={isLoadingConfirmPayment}
+        >
+          {isLoadingConfirmPayment ? (
+            <ActivityIndicator size="small" color="#ffffff" />
+          ) : (
+            <Text style={styles.buttonText}>Confirm Payment</Text>
+          )}
+        </TouchableOpacity>
       )}
       {showReceivedGoodsButton && (
-        <View style={styles.lastDown1}>
-          <TouchableOpacity style={styles.button} onPress={handleReceivedGoods} disabled={isLoadingReceivedGoods}>
-            {isLoadingReceivedGoods ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>I have received items</Text>}
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          style={[styles.button, isLoadingReceivedGoods && styles.buttonLoading]}
+          onPress={handleReceivedGoods}
+          disabled={isLoadingReceivedGoods}
+        >
+          {isLoadingReceivedGoods ? (
+            <ActivityIndicator size="small" color="#ffffff" />
+          ) : (
+            <Text style={styles.buttonText}>Received Goods</Text>
+          )}
+        </TouchableOpacity>
       )}
       {showOpenConflictTicketButton && (
-        <View style={styles.lastDown1}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Open conflict ticket</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          style={[styles.button, styles.conflictButton]}
+          onPress={() => navigation.navigate('ConflictTicket', { escrowDocument })}
+        >
+          <Text style={styles.buttonText}>Open Conflict Ticket</Text>
+        </TouchableOpacity>
       )}
       {status === 'success' && <ReleaseSuccess />}
       {status === 'error' && <Failure2 />}
@@ -227,45 +244,56 @@ const TransactionDetailsPage = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    backgroundColor: 'white',
+    flex: 1,
+    padding: 16,
   },
   headerContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
+    justifyContent: 'space-between',
+    marginBottom: 16,
   },
   leftButton: {
-    marginRight: 10,
+    padding: 8,
   },
   rightButton: {
-    marginLeft: 10,
+    padding: 8,
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
   },
   section: {
-    marginBottom: 20,
+    marginBottom: 16,
   },
   label: {
     fontWeight: 'bold',
   },
   value: {
-    marginBottom: 10,
+    marginBottom: 8,
   },
   button: {
-    backgroundColor: 'rgba(98, 36, 143, 1)',
-    padding: 10,
-    borderRadius: 5,
+    backgroundColor: '#007bff',
+    padding: 16,
+    borderRadius: 8,
     alignItems: 'center',
+    marginBottom: 8,
+  },
+  conflictButton: {
+    backgroundColor: '#dc3545',
   },
   buttonText: {
-    color: 'white',
+    color: '#ffffff',
+    fontWeight: 'bold',
   },
-  lastDown1: {
-    marginBottom: 20,
+  buttonLoading: {
+    opacity: 0.7,
+  },
+  installment: {
+    marginBottom: 8,
+  },
+  error: {
+    color: 'red',
   },
 });
 

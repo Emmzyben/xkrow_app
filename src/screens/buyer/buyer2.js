@@ -73,14 +73,14 @@ const Buyer2 = ({ navigation }) => {
 
 const localStyles = StyleSheet.create({
   header: {
-    padding: 30,
+    padding: 20,
     borderWidth: 1,
     borderColor: 'rgba(102, 112, 133, 1)',
-    position: 'relative',
+    position: 'relative',paddingTop:50
   },
   arrowButton: {
     position: 'absolute',
-    top: 30,left:10,
+    top: 50,left:20,
     zIndex: 1000,
   },
   title: {

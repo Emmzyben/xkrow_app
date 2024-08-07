@@ -78,14 +78,14 @@ const localStyles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    padding: 30,
+    padding: 20,
     borderColor: 'rgba(102, 112, 133, 1)',
     borderWidth: 1,
-    position: 'relative',
+    position: 'relative',paddingTop:50
   },
   backButton: {
     position: 'absolute',
-    top: 30,left:10,
+    top: 50,left:20,
     zIndex: 1000,
   },
   title: {

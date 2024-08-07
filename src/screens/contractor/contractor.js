@@ -221,9 +221,9 @@ const Contractor = ({ navigation }) => {
 
 const localStyles = StyleSheet.create({
   header: {
-    padding: 30,
+    padding: 20,
     borderColor: 'rgba(102, 112, 133, 1)',
-    borderWidth: 1,
+    borderWidth: 1,paddingTop:50
   },
   picker: {
     height: 50,
@@ -235,7 +235,7 @@ const localStyles = StyleSheet.create({
   },
   arrowButton: {
     position: 'absolute',
-    top: 30,left:10,
+    top: 50,left:20,
     zIndex: 1000,
   },
   title: {

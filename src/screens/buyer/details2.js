@@ -82,11 +82,11 @@ const Details2 = ({ route, navigation }) => {
 
 const localStyles = StyleSheet.create({
   header: {
-    padding: 30,
+    padding: 20,paddingTop:50
   },
   arrowButton: {
     position: 'absolute',
-    top: 30,left:15,
+    top: 50,left:20,
     zIndex: 1000,
   },
   title: {

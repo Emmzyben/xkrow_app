@@ -31,22 +31,22 @@ const Buyer1 = ({ navigation }) => {
         <View style={styles.role}>
           <TouchableOpacity onPress={() => navigation.navigate('Buyer2')} style={styles.roles}>
             <Text style={localStyles.roleText}>Buyer</Text>
-            <Image source={require('../../../assets/OBJECTS.png')} />
+            <Image source={require('../../../assets/OBJECTS.png')} style={localStyles.img}/>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate('Vendor1')} style={styles.roles}>
             <Text style={localStyles.roleText}>Vendor</Text>
-            <Image source={require('../../../assets/OBJECTS3.png')} />
+            <Image source={require('../../../assets/OBJECTS3.png')} style={localStyles.img} />
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate('Contractor')} style={styles.roles}>
             <Text style={localStyles.roleText}>Contractor</Text>
-            <Image source={require('../../../assets/OBJECTS1.png')} />
+            <Image source={require('../../../assets/OBJECTS1.png')} style={localStyles.img} />
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate('Professionals1')} style={styles.roles}>
             <Text style={localStyles.roleText}>Skilled professionals</Text>
-            <Image source={require('../../../assets/OBJECTS2.png')} />
+            <Image source={require('../../../assets/OBJECTS2.png')} style={localStyles.img}/>
           </TouchableOpacity>
         </View>
       </View>
@@ -97,6 +97,9 @@ const localStyles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 11,
   },
+  img:{
+   width:"100%"
+  }
 });
 
 export default Buyer1;

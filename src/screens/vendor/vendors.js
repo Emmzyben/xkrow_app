@@ -37,8 +37,8 @@ const Vendors = ({ navigation }) => {
 
   return (
     <ScrollView style={{backgroundColor:'#fff'}}>
-      <View style={{ padding: 30, borderBottomWidth: 1, borderBottomColor: 'rgba(102, 112, 133, 1)' }}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={{ position: 'absolute', top: 30, left: 15 }}>
+      <View style={{ padding: 20, borderBottomWidth: 1, borderBottomColor: 'rgba(102, 112, 133, 1)' ,paddingTop:50}}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={{ position: 'absolute', top: 50, left: 20,zIndex:100000 }}>
           <FontAwesomeIcon icon={faArrowLeft} size={17} />
         </TouchableOpacity>
         <Text style={{ textAlign: 'center', fontSize: 15.3, lineHeight: 18.52, fontWeight: '700', color: '#141414' }}>

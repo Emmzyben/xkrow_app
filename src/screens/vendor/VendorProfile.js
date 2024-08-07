@@ -90,21 +90,22 @@ const VendorProfile = ({ route, navigation }) => {
 
   return (
     <View>
-      <View style={{ padding: 30, borderBottomWidth: 1, borderBottomColor: 'rgba(102, 112, 133, 1)' }}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={{ position: 'absolute', top: 30, left: 20 }}>
+      <View style={{ padding: 20, borderBottomWidth: 1, borderBottomColor: 'rgba(102, 112, 133, 1)',paddingTop:50 }}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={{ position: 'absolute', top: 50, left: 20 }}>
           <FontAwesomeIcon icon={faArrowLeft} size={17} />
         </TouchableOpacity>
         <Text style={{ textAlign: 'center', fontSize: 15.3, lineHeight: 18.52, fontWeight: '700', color: '#141414' }}>Vendor Profile</Text>
       </View>
 
+      <View style={styles.bg}>
       <View style={styles.profilePicture}>
         {profileImage ? (
-          <Image source={{ uri: profileImage }} style={{ height: '100%' }} />
+          <Image source={{ uri: profileImage }} style={{ height: '100%' ,borderRadius:100}} />
         ) : (
           <Text>No Profile Image</Text>
         )}
       </View>
-
+</View>
       <Text style={styles.businessName}>{personalInfo.businessName || 'Business Name'}</Text>
       <View style={styles.follow}>
         <TouchableOpacity style={styles.followbtn}>

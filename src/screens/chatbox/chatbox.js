@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet, ActivityIndicator, Image } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { database, Query } from '../../backend/appwite';
 import { useUser } from '../../backend/user';
 import { DATABASE_ID, COLLECTION_ID_CONVERSATIONS } from '@env';
@@ -17,39 +17,41 @@ const Chatbox = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+  const fetchConversations = async () => {
     if (!user) return;
 
-    const fetchConversations = async () => {
-      try {
-        setLoading(true);
+    try {
+      setLoading(true);
 
-        const conversationsResult = await database.listDocuments(
-          DATABASE_ID,
-          COLLECTION_ID_CONVERSATIONS,
-          [
-            Query.equal('participants', [user.id]),
-            Query.orderDesc('createdAt'),
-          ]
-        );
+      const conversationsResult = await database.listDocuments(
+        DATABASE_ID,
+        COLLECTION_ID_CONVERSATIONS,
+        [
+          Query.equal('participants', [user.id]),
+          Query.orderDesc('createdAt'),
+        ]
+      );
 
-        setConversations(conversationsResult.documents);
+      setConversations(conversationsResult.documents);
 
-        // Fetch profiles of all participants
-        const participantIds = Array.from(new Set(conversationsResult.documents.flatMap(doc => doc.participants)));
-        const profilesData = await useGetAllVendor2(participantIds);
+      // Fetch profiles of all participants
+      const participantIds = Array.from(new Set(conversationsResult.documents.flatMap(doc => doc.participants)));
+      const profilesData = await useGetAllVendor2(participantIds);
 
-        setProfiles(profilesData);
-      } catch (error) {
-        console.error('Error fetching conversations or profiles:', error);
-        setError('Failed to load conversations');
-      } finally {
-        setLoading(false);
-      }
-    };
+      setProfiles(profilesData);
+    } catch (error) {
+      console.error('Error fetching conversations or profiles:', error);
+      setError('Failed to load conversations');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchConversations();
-  }, [user]);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchConversations();
+    }, [user])
+  );
 
   const handlePress = (conversationId) => {
     navigation.navigate('ChatScreen', { conversationId });
@@ -66,17 +68,17 @@ const Chatbox = () => {
 
     return (
       <TouchableOpacity style={styles.item} onPress={() => handlePress(item.$id)}>
-      <View style={styles.itemHeader}>
-       <View>
-          <Image style={styles.img1} source={participantProfile.imageUrl ? { uri: participantProfile.imageUrl } : require('../../../assets/logo.jpg')} />
+        <View style={styles.itemHeader}>
+          <View>
+            <Image style={styles.img1} source={participantProfile.imageUrl ? { uri: participantProfile.imageUrl } : require('../../../assets/logo.jpg')} />
+          </View>
+          <View>
+            <Text style={styles.title}>{participantProfile.name}</Text>
+            <Text style={styles.lastMessage}>{item.lastMessage}</Text>
+          </View>
         </View>
-        <View >
-          <Text style={styles.title}>{participantProfile.name}</Text>
-           <Text style={styles.lastMessage}>{item.lastMessage}</Text>
-        </View>
-        </View>
-       <View></View>
-       <Text style={styles.date}>{lastMessageDate}</Text>
+        <View></View>
+        <Text style={styles.date}>{lastMessageDate}</Text>
       </TouchableOpacity>
     );
   };
@@ -144,10 +146,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     zIndex: 1,
+    paddingTop: 50
   },
   backButton: {
     position: 'absolute',
     left: 10,
+    top: 50
   },
   headerText: {
     textAlign: 'center',
@@ -167,7 +171,7 @@ const styles = StyleSheet.create({
     padding: 10,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent:'space-between'
+    justifyContent: 'space-between'
   },
   itemHeader: {
     flexDirection: 'row',

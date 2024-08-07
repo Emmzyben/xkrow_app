@@ -9,6 +9,7 @@ import useCreateMessageNotify from '../../hooks/useCreateMessageNotify';
 import * as ImagePicker from 'expo-image-picker';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { useNavigation } from '@react-navigation/native';
 const fetchUserProfiles = async (userIds) => {
   if (!userIds || userIds.length === 0) {
     return {};
@@ -109,6 +110,7 @@ const pickMedia = async (onSend, user) => {
 };
 
 const ChatScreen = ({ route }) => {
+  const navigation = useNavigation();
   const { conversationId } = route.params;
   const { user } = useUser(); // Get the user context
   const [messages, setMessages] = useState([]);
@@ -226,7 +228,7 @@ const ChatScreen = ({ route }) => {
   return (
     <View style={styles.container}>
      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.navigate('Landing')} style={styles.backButton}>
+        <TouchableOpacity onPress={() => navigation.navigate('Chatbox')} style={styles.backButton}>
           <FontAwesomeIcon icon={faArrowLeft} size={17} />
         </TouchableOpacity>
         <Text style={styles.headerText}>Conversation</Text>
@@ -263,11 +265,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff',
-    zIndex: 1,
+    zIndex: 1,paddingTop:50
   },
   backButton: {
     position: 'absolute',
-    left: 10,
+    left: 20,top:50,zIndex:10000
   },
   headerText: {
     textAlign: 'center',

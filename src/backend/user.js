@@ -39,8 +39,8 @@ const UserProvider = ({ children }) => {
       await account.createEmailPasswordSession(email, password); 
       await checkUser();
     } catch (error) {
-      console.error('Error registering:', error);
-      throw error;
+      // console.error('Error registering:', error);
+      // throw error;
     }
   };
 
@@ -53,7 +53,7 @@ const UserProvider = ({ children }) => {
       await checkUser();
     } catch (error) {
       // console.error('Error logging in:', error);
-      throw error;
+      // throw error;
     }
   };
 

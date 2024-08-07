@@ -28,14 +28,14 @@ const ProductDetails = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   header: {
-    padding: 30,
+    padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(102, 112, 133, 1)',
+    borderBottomColor: 'rgba(102, 112, 133, 1)',paddingTop:50
   },
   backButton: {
     position: 'absolute',
-    top: 30,
-    left: 15,
+    top: 50,
+    left: 20,
   },
   headerTitle: {
     textAlign: 'center',
