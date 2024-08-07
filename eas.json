@@ -7,27 +7,27 @@
       "developmentClient": true,
       "distribution": "internal",
       "android": {
-        "image": "./assets/logo.jpg"
+        "image": "default"
       },
       "ios": {
-        "image": "./assets/logo.jpg"
+        "image": "default"
       }
     },
     "preview": {
       "distribution": "internal",
       "android": {
-        "image": "./assets/logo.jpg"
+        "image": "default"
       },
       "ios": {
-        "image": "./assets/logo.jpg"
+        "image": "default"
       }
     },
     "production": {
       "android": {
-        "image": "./assets/logo.jpg"
+        "image": "default"
       },
       "ios": {
-        "image": "./assets/logo.jpg"
+        "image": "default"
       }
     }
   },
